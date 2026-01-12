@@ -2,8 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cascavel Peças - Sistema Interno de Locação</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cascavel Peças - Sistema Interno</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,35 +14,39 @@
         }
 
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --gray: #95a5a6;
+            --black: #000000;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --light-gold: #FFF8DC;
+            --dark-gray: #1a1a1a;
+            --gray: #333333;
+            --light-gray: #666666;
+            --white: #FFFFFF;
+            --red: #DC143C;
+            --green: #32CD32;
+            --yellow: #FFD700;
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            padding-bottom: 80px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Header */
+        .header {
+            background: linear-gradient(to right, var(--black), var(--gray));
+            color: var(--gold);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+            border-bottom: 2px solid var(--gold);
         }
 
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -51,75 +55,89 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--warning);
+        .logo-icon {
+            font-size: 24px;
+            color: var(--gold);
         }
 
-        .logo h1 {
-            font-size: 1.8rem;
+        .logo-text h1 {
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .logo span {
-            color: var(--warning);
+        .logo-text p {
+            font-size: 12px;
+            color: var(--light-gray);
         }
 
+        /* Botão de usuários (cadeado) */
+        .users-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--gold);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--dark-gold);
+        }
+
+        /* Botões de ação */
         .action-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            padding: 15px;
+            background-color: var(--dark-gray);
+            border-bottom: 1px solid var(--gray);
         }
 
-        .btn {
-            padding: 12px 24px;
+        .action-btn {
+            flex: 1;
+            padding: 12px;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 14px;
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
-        .btn-success {
-            background-color: var(--success);
-            color: white;
+        .btn-gold {
+            background-color: var(--gold);
+            color: var(--black);
         }
 
-        .btn-success:hover {
-            background-color: #219653;
-            transform: translateY(-3px);
+        .btn-red {
+            background-color: var(--red);
+            color: var(--white);
         }
 
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
+        .btn-gray {
+            background-color: var(--gray);
+            color: var(--white);
         }
 
-        .btn-danger:hover {
-            background-color: #c0392b;
-            transform: translateY(-3px);
+        .action-btn:active {
+            transform: scale(0.95);
         }
 
-        .btn-secondary {
-            background-color: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #2980b9;
-        }
-
+        /* Barra de pesquisa */
         .search-container {
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
+            padding: 15px;
+            background-color: var(--dark-gray);
         }
 
         .search-box {
@@ -127,134 +145,178 @@
             gap: 10px;
         }
 
-        .search-box input {
+        .search-input {
             flex: 1;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            transition: border 0.3s;
-        }
-
-        .search-box input:focus {
-            border-color: var(--secondary);
-            outline: none;
-        }
-
-        .search-box button {
-            padding: 15px 25px;
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .search-box button:hover {
-            background-color: #2980b9;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background-color: white;
+            padding: 14px;
+            background-color: var(--black);
+            border: 2px solid var(--gold);
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
+            color: var(--white);
+            font-size: 16px;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        .search-input::placeholder {
+            color: var(--light-gray);
+        }
+
+        .search-btn {
+            width: 50px;
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        /* Container de peças */
+        .parts-container {
+            padding: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 20px;
+        }
+
+        /* Cards de peças */
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            gap: 15px;
+        }
+
+        .part-card {
+            background: linear-gradient(to bottom right, var(--dark-gray), var(--black));
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 5px solid var(--gold);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .part-card.out-of-stock {
+            border-left-color: var(--red);
+            opacity: 0.8;
+        }
+
+        .part-card.low-stock {
+            border-left-color: var(--yellow);
         }
 
         .card-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
         }
 
-        .card-code {
-            font-size: 0.9rem;
-            color: var(--light);
+        .part-code {
+            font-size: 14px;
+            color: var(--gold);
+            background-color: rgba(255, 215, 0, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .part-name {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 5px;
         }
 
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-info {
+        .part-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
 
-        .card-info span {
+        .info-label {
+            color: var(--light-gray);
+        }
+
+        .info-value {
+            color: var(--white);
             font-weight: 600;
-            color: var(--dark);
         }
 
-        .card-quantity {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-align: center;
+        .stock-container {
             margin: 15px 0;
-            color: var(--primary);
+            text-align: center;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--black);
+            color: var(--gold);
+            border-radius: 20px;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid var(--gold);
+        }
+
+        .stock-badge.out-of-stock {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        .stock-badge.low-stock {
+            color: var(--yellow);
+            border-color: var(--yellow);
         }
 
         .card-actions {
             display: flex;
             gap: 10px;
+            margin-top: 15px;
         }
 
-        .card-actions button {
+        .card-btn {
             flex: 1;
             padding: 12px;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 8px;
             font-weight: 600;
-            transition: background-color 0.3s;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-debit {
-            background-color: var(--secondary);
-            color: white;
+        .debit-btn {
+            background-color: var(--gold);
+            color: var(--black);
         }
 
-        .btn-debit:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-disabled {
-            background-color: var(--gray);
-            color: white;
+        .debit-btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        .out-of-stock {
-            border-left: 6px solid var(--danger);
+        .history-btn {
+            background-color: var(--gray);
+            color: var(--white);
         }
 
-        .low-stock {
-            border-left: 6px solid var(--warning);
+        .last-debit {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--light-gray);
+            font-style: italic;
+            border-top: 1px dashed var(--gray);
+            padding-top: 10px;
         }
 
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -262,274 +324,492 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            overflow-y: auto;
         }
 
         .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
+            background-color: var(--dark-gray);
+            margin: 20px auto;
+            width: 95%;
             max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            animation: modalOpen 0.3s;
+        }
+
+        @keyframes modalOpen {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
+            background-color: var(--black);
+            padding: 20px;
+            border-bottom: 2px solid var(--gold);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
         }
 
-        .modal-header h2 {
-            color: var(--primary);
+        .modal-title {
+            color: var(--gold);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .close {
-            font-size: 2rem;
+        .modal-close {
+            color: var(--light-gray);
+            font-size: 28px;
+            background: none;
+            border: none;
             cursor: pointer;
-            color: var(--gray);
-            transition: color 0.3s;
         }
 
-        .close:hover {
-            color: var(--danger);
+        .modal-body {
+            padding: 20px;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
             margin-bottom: 8px;
+            color: var(--gold);
             font-weight: 600;
-            color: var(--dark);
         }
 
-        .form-group input {
+        .form-input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border 0.3s;
+            padding: 14px;
+            background-color: var(--black);
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 16px;
         }
 
-        .form-group input:focus {
-            border-color: var(--secondary);
+        .form-input:focus {
+            border-color: var(--gold);
             outline: none;
         }
 
-        .modal-actions {
+        .form-actions {
             display: flex;
-            justify-content: flex-end;
-            gap: 15px;
+            gap: 10px;
             margin-top: 30px;
         }
 
-        .history-panel {
-            background-color: white;
-            padding: 25px;
+        .form-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-top: 30px;
-            display: none;
+            font-weight: 600;
+            font-size: 16px;
         }
 
-        .history-panel h2 {
-            color: var(--danger);
-            margin-bottom: 20px;
+        /* Painel de usuários */
+        .users-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+        }
+
+        .user-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            padding: 12px;
+            background-color: var(--black);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--gray);
+        }
+
+        .user-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--light-gray);
+        }
+
+        .user-actions {
+            display: flex;
             gap: 10px;
         }
 
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
         }
 
-        .history-table th, .history-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+        .edit-btn {
+            background-color: var(--gold);
+            color: var(--black);
         }
 
-        .history-table th {
-            background-color: #f8f9fa;
-            color: var(--primary);
+        .delete-btn {
+            background-color: var(--red);
+            color: var(--white);
+        }
+
+        /* Seletor de usuário no débito */
+        .user-selector {
+            margin: 20px 0;
+        }
+
+        .user-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .user-option {
+            padding: 10px 15px;
+            background-color: var(--black);
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-option.selected {
+            background-color: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        /* Histórico */
+        .history-list {
+            margin-top: 20px;
+        }
+
+        .history-item {
+            padding: 12px;
+            background-color: var(--black);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .history-date {
             font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 5px;
         }
 
-        .history-table tr:hover {
-            background-color: #f8f9fa;
+        .history-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
         }
 
+        /* Mensagem de lista vazia */
         .empty-state {
             text-align: center;
             padding: 40px 20px;
-            color: var(--gray);
+            color: var(--light-gray);
         }
 
-        .empty-state i {
-            font-size: 3rem;
+        .empty-icon {
+            font-size: 48px;
+            color: var(--gray);
             margin-bottom: 15px;
-            color: #ddd;
         }
 
-        .footer {
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background-color: var(--black);
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--gray);
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
+            font-weight: 600;
+            color: var(--light-gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
         }
 
-        .debit-log {
-            font-size: 0.8rem;
-            color: var(--gray);
-            margin-top: 10px;
-            font-style: italic;
+        .tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
         }
 
-        @media (max-width: 768px) {
-            .cards-container {
-                grid-template-columns: 1fr;
+        /* Status bar */
+        .status-bar {
+            background-color: var(--black);
+            padding: 10px 15px;
+            font-size: 14px;
+            color: var(--light-gray);
+            border-top: 1px solid var(--gray);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsividade extra */
+        @media (min-width: 768px) {
+            .parts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
             
-            header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .action-buttons {
-                width: 100%;
-                justify-content: center;
+            .modal-content {
+                width: 80%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
             <div class="logo">
-                <i class="fas fa-cogs"></i>
-                <div>
-                    <h1>Cascavel <span>Peças</span></h1>
+                <div class="logo-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Cascavel Peças</h1>
                     <p>Sistema Interno de Locação</p>
                 </div>
             </div>
-            <div class="action-buttons">
-                <button class="btn btn-success" id="btnNewPart">
-                    <i class="fas fa-plus"></i> Cadastrar Peça
-                </button>
-                <button class="btn btn-danger" id="btnOutOfStock">
-                    <i class="fas fa-exclamation-triangle"></i> Peças Esgotadas
-                </button>
-            </div>
-        </header>
-
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Digite o código ou nome da peça...">
-                <button id="searchButton">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
+            <div class="header-actions">
+                <i class="fas fa-user-circle" style="font-size: 24px; color: var(--gold);"></i>
             </div>
         </div>
+    </header>
 
-        <div id="partsContainer" class="cards-container">
-            <!-- As peças serão carregadas aqui via JavaScript -->
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" id="tab-stock">
+            <i class="fas fa-boxes"></i> Estoque
         </div>
-
-        <div id="outOfStockPanel" class="history-panel">
-            <h2><i class="fas fa-exclamation-circle"></i> Peças Esgotadas ou com Baixo Estoque</h2>
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nome</th>
-                        <th>Quantidade</th>
-                        <th>Última Locação</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody id="outOfStockTable">
-                    <!-- Conteúdo será preenchido via JavaScript -->
-                </tbody>
-            </table>
+        <div class="tab" id="tab-outofstock">
+            <i class="fas fa-exclamation-triangle"></i> Esgotadas
         </div>
-
-        <div class="footer">
-            <p>Sistema de Locação Interna - Cascavel Peças &copy; <span id="currentYear"></span></p>
-            <p>Uso exclusivo para funcionários autorizados</p>
+        <div class="tab" id="tab-history">
+            <i class="fas fa-history"></i> Histórico
         </div>
     </div>
 
-    <!-- Modal para cadastrar nova peça -->
-    <div id="newPartModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-plus-circle"></i> Cadastrar Nova Peça</h2>
-                <span class="close">&times;</span>
-            </div>
-            <form id="newPartForm">
-                <div class="form-group">
-                    <label for="partCode">Código da Peça</label>
-                    <input type="text" id="partCode" required placeholder="Ex: CP-001">
-                </div>
-                <div class="form-group">
-                    <label for="partName">Nome da Peça</label>
-                    <input type="text" id="partName" required placeholder="Ex: Junta do Motor">
-                </div>
-                <div class="form-group">
-                    <label for="partValue">Valor (R$)</label>
-                    <input type="number" id="partValue" step="0.01" required placeholder="Ex: 89.90">
-                </div>
-                <div class="form-group">
-                    <label for="partQuantity">Quantidade Inicial</label>
-                    <input type="number" id="partQuantity" required placeholder="Ex: 10" min="0">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary close">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Salvar Peça</button>
-                </div>
-            </form>
+    <!-- Ações principais -->
+    <div class="action-buttons">
+        <button class="action-btn btn-gold" id="btn-add-part">
+            <i class="fas fa-plus"></i> Nova Peça
+        </button>
+        <button class="action-btn btn-red" id="btn-show-outofstock">
+            <i class="fas fa-exclamation-circle"></i> Esgotadas
+        </button>
+    </div>
+
+    <!-- Barra de pesquisa -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" class="search-input" id="search-input" placeholder="Buscar peça por nome ou código...">
+            <button class="search-btn" id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Modal para debitar peça -->
-    <div id="debitModal" class="modal">
+    <!-- Conteúdo principal -->
+    <main>
+        <!-- Seção: Todas as peças -->
+        <section id="all-parts-section" class="parts-container">
+            <h2 class="section-title">
+                <i class="fas fa-boxes"></i> Todas as Peças
+                <span id="parts-count" style="font-size: 14px; color: var(--light-gray); margin-left: auto;">0 peças</span>
+            </h2>
+            <div class="parts-grid" id="all-parts-grid">
+                <!-- As peças serão carregadas aqui -->
+            </div>
+        </section>
+
+        <!-- Seção: Resultados da busca -->
+        <section id="search-results-section" class="parts-container" style="display: none;">
+            <h2 class="section-title">
+                <i class="fas fa-search"></i> Resultados da Busca
+                <button class="action-btn btn-gray" id="btn-clear-search" style="padding: 8px 12px; font-size: 12px;">
+                    <i class="fas fa-times"></i> Limpar
+                </button>
+            </h2>
+            <div class="parts-grid" id="search-results-grid">
+                <!-- Resultados da busca serão carregados aqui -->
+            </div>
+        </section>
+
+        <!-- Seção: Peças esgotadas -->
+        <section id="outofstock-section" class="parts-container" style="display: none;">
+            <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i> Peças Esgotadas ou Baixo Estoque
+            </h2>
+            <div class="parts-grid" id="outofstock-grid">
+                <!-- Peças esgotadas serão carregadas aqui -->
+            </div>
+        </section>
+
+        <!-- Seção: Histórico -->
+        <section id="history-section" class="parts-container" style="display: none;">
+            <h2 class="section-title">
+                <i class="fas fa-history"></i> Histórico de Movimentações
+            </h2>
+            <div id="history-list">
+                <!-- Histórico será carregado aqui -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Botão de usuários (cadeado) -->
+    <button class="users-button pulse" id="users-button">
+        <i class="fas fa-lock"></i>
+    </button>
+
+    <!-- Status bar -->
+    <div class="status-bar">
+        <span id="current-date"></span> | <span id="total-stock">Estoque total: 0 itens</span>
+    </div>
+
+    <!-- Modal: Nova peça -->
+    <div class="modal" id="modal-new-part">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-minus-circle"></i> Debitar Peça</h2>
-                <span class="close">&times;</span>
+                <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Cadastrar Nova Peça</h3>
+                <button class="modal-close" id="close-new-part">&times;</button>
             </div>
-            <div id="debitModalContent">
+            <div class="modal-body">
+                <form id="form-new-part">
+                    <div class="form-group">
+                        <label class="form-label">Código da Peça</label>
+                        <input type="text" class="form-input" id="part-code" required placeholder="Ex: CP-001">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nome da Peça</label>
+                        <input type="text" class="form-input" id="part-name" required placeholder="Ex: Junta do Motor">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Valor Unitário (R$)</label>
+                        <input type="number" class="form-input" id="part-value" step="0.01" required placeholder="Ex: 89.90">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Quantidade Inicial</label>
+                        <input type="number" class="form-input" id="part-quantity" required placeholder="Ex: 10" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Localização (Prateleira)</label>
+                        <input type="text" class="form-input" id="part-location" required placeholder="Ex: A1">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="form-btn btn-gray" id="cancel-new-part">Cancelar</button>
+                        <button type="submit" class="form-btn btn-gold">Salvar Peça</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Debitar peça -->
+    <div class="modal" id="modal-debit-part">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-minus-circle"></i> Debitar Peça</h3>
+                <button class="modal-close" id="close-debit-part">&times;</button>
+            </div>
+            <div class="modal-body" id="debit-modal-body">
                 <!-- Conteúdo será preenchido via JavaScript -->
             </div>
         </div>
     </div>
 
+    <!-- Modal: Gerenciar usuários -->
+    <div class="modal" id="modal-users">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-users"></i> Gerenciar Usuários</h3>
+                <button class="modal-close" id="close-users-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Adicionar Novo Usuário</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" class="form-input" id="new-user-name" placeholder="Nome do usuário">
+                        <button class="form-btn btn-gold" id="btn-add-user" style="width: auto; padding: 0 20px;">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="users-list" id="users-list">
+                    <!-- Lista de usuários será carregada aqui -->
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="form-btn btn-gray" id="close-users">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Histórico da peça -->
+    <div class="modal" id="modal-part-history">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-history"></i> Histórico da Peça</h3>
+                <button class="modal-close" id="close-history-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="part-history-body">
+                <!-- Histórico será preenchido aqui -->
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Dados iniciais (simulando um banco de dados)
-        let parts = [
+        // Dados iniciais
+        let parts = JSON.parse(localStorage.getItem('cascavel-parts')) || [
             {
                 id: 1,
                 code: "CP-001",
                 name: "Junta do Motor",
                 value: 89.90,
                 quantity: 15,
-                location: "Prateleira A1",
+                location: "A1",
                 history: [
-                    { date: "2023-10-05 14:30", action: "Retirada", user: "João Silva" },
-                    { date: "2023-10-03 09:15", action: "Retirada", user: "Maria Santos" }
+                    { date: "2023-10-05 14:30", action: "Retirada", user: "João Silva", quantity: 2 },
+                    { date: "2023-10-03 09:15", action: "Retirada", user: "Maria Santos", quantity: 1 }
                 ]
             },
             {
@@ -538,10 +818,10 @@
                 name: "Filtro de Óleo",
                 value: 24.50,
                 quantity: 8,
-                location: "Prateleira B2",
+                location: "B2",
                 history: [
-                    { date: "2023-10-06 11:20", action: "Retirada", user: "Carlos Oliveira" },
-                    { date: "2023-10-04 16:45", action: "Retirada", user: "Ana Costa" }
+                    { date: "2023-10-06 11:20", action: "Retirada", user: "Carlos Oliveira", quantity: 3 },
+                    { date: "2023-10-04 16:45", action: "Retirada", user: "Ana Costa", quantity: 2 }
                 ]
             },
             {
@@ -550,9 +830,9 @@
                 name: "Pastilha de Freio",
                 value: 120.00,
                 quantity: 3,
-                location: "Prateleira C3",
+                location: "C3",
                 history: [
-                    { date: "2023-10-07 08:10", action: "Retirada", user: "Pedro Alves" }
+                    { date: "2023-10-07 08:10", action: "Retirada", user: "Pedro Alves", quantity: 1 }
                 ]
             },
             {
@@ -561,10 +841,10 @@
                 name: "Correia Dentada",
                 value: 65.80,
                 quantity: 0,
-                location: "Prateleira D4",
+                location: "D4",
                 history: [
-                    { date: "2023-10-01 10:30", action: "Retirada", user: "João Silva" },
-                    { date: "2023-09-28 15:20", action: "Retirada", user: "Maria Santos" }
+                    { date: "2023-10-01 10:30", action: "Retirada", user: "João Silva", quantity: 5 },
+                    { date: "2023-09-28 15:20", action: "Retirada", user: "Maria Santos", quantity: 3 }
                 ]
             },
             {
@@ -573,7 +853,7 @@
                 name: "Velas de Ignição",
                 value: 45.90,
                 quantity: 12,
-                location: "Prateleira E5",
+                location: "E5",
                 history: []
             },
             {
@@ -582,99 +862,361 @@
                 name: "Sensor de Oxigênio",
                 value: 185.00,
                 quantity: 2,
-                location: "Prateleira F6",
+                location: "F6",
                 history: [
-                    { date: "2023-10-06 13:45", action: "Retirada", user: "Carlos Oliveira" }
+                    { date: "2023-10-06 13:45", action: "Retirada", user: "Carlos Oliveira", quantity: 1 }
                 ]
             }
         ];
 
+        let users = JSON.parse(localStorage.getItem('cascavel-users')) || [
+            { id: 1, name: "João Silva", active: true },
+            { id: 2, name: "Maria Santos", active: true },
+            { id: 3, name: "Carlos Oliveira", active: true },
+            { id: 4, name: "Ana Costa", active: true },
+            { id: 5, name: "Pedro Alves", active: true }
+        ];
+
+        let currentUser = null;
+
         // Elementos DOM
-        const partsContainer = document.getElementById('partsContainer');
-        const searchInput = document.getElementById('searchInput');
-        const searchButton = document.getElementById('searchButton');
-        const btnNewPart = document.getElementById('btnNewPart');
-        const btnOutOfStock = document.getElementById('btnOutOfStock');
-        const newPartModal = document.getElementById('newPartModal');
-        const debitModal = document.getElementById('debitModal');
-        const newPartForm = document.getElementById('newPartForm');
-        const debitModalContent = document.getElementById('debitModalContent');
-        const outOfStockPanel = document.getElementById('outOfStockPanel');
-        const outOfStockTable = document.getElementById('outOfStockTable');
-        const closeButtons = document.querySelectorAll('.close');
-        const currentYear = document.getElementById('currentYear');
+        const allPartsSection = document.getElementById('all-parts-section');
+        const searchResultsSection = document.getElementById('search-results-section');
+        const outofstockSection = document.getElementById('outofstock-section');
+        const historySection = document.getElementById('history-section');
+        
+        const allPartsGrid = document.getElementById('all-parts-grid');
+        const searchResultsGrid = document.getElementById('search-results-grid');
+        const outofstockGrid = document.getElementById('outofstock-grid');
+        const historyList = document.getElementById('history-list');
+        
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const btnClearSearch = document.getElementById('btn-clear-search');
+        
+        const btnAddPart = document.getElementById('btn-add-part');
+        const btnShowOutofstock = document.getElementById('btn-show-outofstock');
+        const usersButton = document.getElementById('users-button');
+        
+        const modalNewPart = document.getElementById('modal-new-part');
+        const modalDebitPart = document.getElementById('modal-debit-part');
+        const modalUsers = document.getElementById('modal-users');
+        const modalPartHistory = document.getElementById('modal-part-history');
+        
+        const formNewPart = document.getElementById('form-new-part');
+        const debitModalBody = document.getElementById('debit-modal-body');
+        const usersList = document.getElementById('users-list');
+        const partHistoryBody = document.getElementById('part-history-body');
+        
+        const closeNewPart = document.getElementById('close-new-part');
+        const cancelNewPart = document.getElementById('cancel-new-part');
+        const closeDebitPart = document.getElementById('close-debit-part');
+        const closeUsersModal = document.getElementById('close-users-modal');
+        const closeUsers = document.getElementById('close-users');
+        const closeHistoryModal = document.getElementById('close-history-modal');
+        
+        const btnAddUser = document.getElementById('btn-add-user');
+        const newUserName = document.getElementById('new-user-name');
+        
+        const tabStock = document.getElementById('tab-stock');
+        const tabOutofstock = document.getElementById('tab-outofstock');
+        const tabHistory = document.getElementById('tab-history');
+        
+        const partsCount = document.getElementById('parts-count');
+        const currentDate = document.getElementById('current-date');
+        const totalStock = document.getElementById('total-stock');
 
-        // Ano atual no footer
-        currentYear.textContent = new Date().getFullYear();
-
-        // Inicialização - carrega todas as peças
-        function loadParts(partsToLoad = parts) {
-            partsContainer.innerHTML = '';
+        // Inicialização
+        function init() {
+            // Atualiza data atual
+            const now = new Date();
+            currentDate.textContent = now.toLocaleDateString('pt-BR');
             
-            if (partsToLoad.length === 0) {
-                partsContainer.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <i class="fas fa-search"></i>
-                        <h3>Nenhuma peça encontrada</h3>
-                        <p>Tente buscar com outros termos ou cadastre uma nova peça.</p>
+            // Carrega todas as peças
+            loadAllParts();
+            
+            // Atualiza contadores
+            updateCounters();
+            
+            // Configura eventos
+            setupEventListeners();
+        }
+
+        // Carrega todas as peças
+        function loadAllParts() {
+            allPartsGrid.innerHTML = '';
+            
+            if (parts.length === 0) {
+                allPartsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3>Nenhuma peça cadastrada</h3>
+                        <p>Clique em "Nova Peça" para começar</p>
                     </div>
                 `;
                 return;
             }
             
-            partsToLoad.forEach(part => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                // Adiciona classe se estiver com estoque baixo ou esgotado
-                if (part.quantity === 0) {
-                    card.classList.add('out-of-stock');
-                } else if (part.quantity <= 3) {
-                    card.classList.add('low-stock');
-                }
-                
-                // Formata a última retirada
-                let lastDebit = "Nenhuma retirada";
-                if (part.history && part.history.length > 0) {
-                    const last = part.history[part.history.length - 1];
-                    lastDebit = `${last.date} por ${last.user}`;
-                }
-                
-                card.innerHTML = `
-                    <div class="card-header">
-                        <div class="card-code">${part.code}</div>
-                        <div class="card-title">${part.name}</div>
+            parts.forEach(part => {
+                allPartsGrid.appendChild(createPartCard(part));
+            });
+        }
+
+        // Cria card de peça
+        function createPartCard(part) {
+            const card = document.createElement('div');
+            card.className = 'part-card';
+            
+            if (part.quantity === 0) {
+                card.classList.add('out-of-stock');
+            } else if (part.quantity <= 3) {
+                card.classList.add('low-stock');
+            }
+            
+            // Última retirada
+            let lastDebit = "Nenhuma retirada registrada";
+            if (part.history && part.history.length > 0) {
+                const last = part.history[part.history.length - 1];
+                lastDebit = `${last.date} - ${last.user} (${last.quantity} un.)`;
+            }
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <div>
+                        <div class="part-name">${part.name}</div>
+                        <div class="part-info">
+                            <span class="info-label">Código:</span>
+                            <span class="info-value">${part.code}</span>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="card-info">
-                            <div>Valor:</div>
-                            <div><span>R$ ${part.value.toFixed(2)}</span></div>
+                    <div class="part-code">${part.code}</div>
+                </div>
+                
+                <div class="part-info">
+                    <span class="info-label">Valor:</span>
+                    <span class="info-value">R$ ${part.value.toFixed(2)}</span>
+                </div>
+                
+                <div class="part-info">
+                    <span class="info-label">Localização:</span>
+                    <span class="info-value">${part.location}</span>
+                </div>
+                
+                <div class="stock-container">
+                    <div class="stock-badge ${part.quantity === 0 ? 'out-of-stock' : part.quantity <= 3 ? 'low-stock' : ''}">
+                        ${part.quantity} UN
+                    </div>
+                </div>
+                
+                <div class="card-actions">
+                    <button class="card-btn debit-btn" data-id="${part.id}" ${part.quantity === 0 ? 'disabled' : ''}>
+                        <i class="fas fa-minus-circle"></i> Debitar
+                    </button>
+                    <button class="card-btn history-btn" data-id="${part.id}">
+                        <i class="fas fa-history"></i> Histórico
+                    </button>
+                </div>
+                
+                <div class="last-debit">
+                    <i class="far fa-clock"></i> Última: ${lastDebit}
+                </div>
+            `;
+            
+            // Adiciona eventos aos botões
+            const debitBtn = card.querySelector('.debit-btn');
+            const historyBtn = card.querySelector('.history-btn');
+            
+            debitBtn.addEventListener('click', () => openDebitModal(part.id));
+            historyBtn.addEventListener('click', () => openPartHistory(part.id));
+            
+            return card;
+        }
+
+        // Atualiza contadores
+        function updateCounters() {
+            // Conta peças
+            partsCount.textContent = `${parts.length} peça${parts.length !== 1 ? 's' : ''}`;
+            
+            // Calcula estoque total
+            const totalItems = parts.reduce((sum, part) => sum + part.quantity, 0);
+            totalStock.textContent = `Estoque total: ${totalItems} itens`;
+            
+            // Conta peças esgotadas
+            const outOfStockCount = parts.filter(part => part.quantity === 0).length;
+            const lowStockCount = parts.filter(part => part.quantity > 0 && part.quantity <= 3).length;
+            
+            // Atualiza texto da tab
+            tabOutofstock.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Esgotadas <span style="font-size: 12px; background: var(--red); color: white; padding: 2px 6px; border-radius: 10px; margin-left: 5px;">${outOfStockCount + lowStockCount}</span>`;
+        }
+
+        // Busca peças
+        function searchParts() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                showSection('all');
+                return;
+            }
+            
+            const results = parts.filter(part => 
+                part.code.toLowerCase().includes(searchTerm) || 
+                part.name.toLowerCase().includes(searchTerm) ||
+                part.location.toLowerCase().includes(searchTerm)
+            );
+            
+            // Mostra resultados
+            searchResultsGrid.innerHTML = '';
+            
+            if (results.length === 0) {
+                searchResultsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-search"></i>
                         </div>
-                        <div class="card-info">
-                            <div>Localização:</div>
-                            <div><span>${part.location}</span></div>
+                        <h3>Nenhuma peça encontrada</h3>
+                        <p>Tente buscar com outros termos</p>
+                    </div>
+                `;
+            } else {
+                results.forEach(part => {
+                    searchResultsGrid.appendChild(createPartCard(part));
+                });
+            }
+            
+            showSection('search');
+        }
+
+        // Mostra seção específica
+        function showSection(section) {
+            // Esconde todas as seções
+            allPartsSection.style.display = 'none';
+            searchResultsSection.style.display = 'none';
+            outofstockSection.style.display = 'none';
+            historySection.style.display = 'none';
+            
+            // Mostra a seção solicitada
+            switch(section) {
+                case 'all':
+                    allPartsSection.style.display = 'block';
+                    break;
+                case 'search':
+                    searchResultsSection.style.display = 'block';
+                    break;
+                case 'outofstock':
+                    outofstockSection.style.display = 'block';
+                    loadOutOfStockParts();
+                    break;
+                case 'history':
+                    historySection.style.display = 'block';
+                    loadHistory();
+                    break;
+            }
+            
+            // Atualiza tabs
+            updateTabs(section);
+        }
+
+        // Atualiza tabs ativas
+        function updateTabs(activeSection) {
+            // Remove classe active de todas as tabs
+            tabStock.classList.remove('active');
+            tabOutofstock.classList.remove('active');
+            tabHistory.classList.remove('active');
+            
+            // Adiciona classe active na tab correspondente
+            switch(activeSection) {
+                case 'all':
+                case 'search':
+                    tabStock.classList.add('active');
+                    break;
+                case 'outofstock':
+                    tabOutofstock.classList.add('active');
+                    break;
+                case 'history':
+                    tabHistory.classList.add('active');
+                    break;
+            }
+        }
+
+        // Carrega peças esgotadas
+        function loadOutOfStockParts() {
+            outofstockGrid.innerHTML = '';
+            
+            const outOfStockParts = parts.filter(part => part.quantity <= 3);
+            
+            if (outOfStockParts.length === 0) {
+                outofstockGrid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-check-circle"></i>
                         </div>
-                        <div class="card-quantity">${part.quantity} unidades</div>
-                        <div class="card-actions">
-                            <button class="btn-debit" data-id="${part.id}" ${part.quantity === 0 ? 'disabled' : ''}>
-                                <i class="fas fa-minus-circle"></i> Debitar
-                            </button>
+                        <h3>Todas as peças estão com estoque suficiente!</h3>
+                        <p>Nenhuma peça esgotada ou com baixo estoque</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            outOfStockParts.forEach(part => {
+                outofstockGrid.appendChild(createPartCard(part));
+            });
+        }
+
+        // Carrega histórico geral
+        function loadHistory() {
+            historyList.innerHTML = '';
+            
+            // Coleta todo o histórico
+            let allHistory = [];
+            parts.forEach(part => {
+                part.history.forEach(record => {
+                    allHistory.push({
+                        ...record,
+                        partName: part.name,
+                        partCode: part.code
+                    });
+                });
+            });
+            
+            // Ordena por data (mais recente primeiro)
+            allHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (allHistory.length === 0) {
+                historyList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-history"></i>
                         </div>
-                        <div class="debit-log">
-                            <i class="far fa-clock"></i> Última retirada: ${lastDebit}
+                        <h3>Nenhum histórico disponível</h3>
+                        <p>As movimentações aparecerão aqui</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Mostra apenas os 50 mais recentes
+            const recentHistory = allHistory.slice(0, 50);
+            
+            recentHistory.forEach(record => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                historyItem.innerHTML = `
+                    <div class="history-date">${record.date}</div>
+                    <div class="history-details">
+                        <div>
+                            <strong>${record.partName}</strong> (${record.partCode})<br>
+                            ${record.action} de ${record.quantity} un.
+                        </div>
+                        <div>
+                            Por: <strong>${record.user}</strong>
                         </div>
                     </div>
                 `;
                 
-                partsContainer.appendChild(card);
-            });
-            
-            // Adiciona eventos aos botões de debitar
-            document.querySelectorAll('.btn-debit').forEach(button => {
-                button.addEventListener('click', function() {
-                    const partId = parseInt(this.getAttribute('data-id'));
-                    openDebitModal(partId);
-                });
+                historyList.appendChild(historyItem);
             });
         }
 
@@ -683,40 +1225,79 @@
             const part = parts.find(p => p.id === partId);
             if (!part) return;
             
-            debitModalContent.innerHTML = `
-                <p>Você está prestes a debitar <strong>${part.name}</strong> (${part.code}).</p>
+            // Se não há usuários cadastrados, pede para cadastrar
+            if (users.length === 0) {
+                alert("Cadastre usuários primeiro clicando no cadeado amarelo!");
+                openUsersModal();
+                return;
+            }
+            
+            debitModalBody.innerHTML = `
+                <h4 style="margin-bottom: 20px; color: var(--gold);">${part.name} (${part.code})</h4>
+                
                 <div class="form-group">
-                    <label for="debitQuantity">Quantidade a debitar (Disponível: ${part.quantity})</label>
-                    <input type="number" id="debitQuantity" min="1" max="${part.quantity}" value="1">
+                    <label class="form-label">Quantidade a debitar</label>
+                    <input type="number" class="form-input" id="debit-quantity" min="1" max="${part.quantity}" value="1">
+                    <small style="color: var(--light-gray); display: block; margin-top: 5px;">Disponível: ${part.quantity} unidades</small>
                 </div>
-                <div class="form-group">
-                    <label for="debitUser">Nome do responsável</label>
-                    <input type="text" id="debitUser" placeholder="Seu nome" value="João Silva">
+                
+                <div class="user-selector">
+                    <label class="form-label">Selecione o responsável</label>
+                    <div class="user-options" id="user-options">
+                        ${users.map(user => `
+                            <div class="user-option ${currentUser && currentUser.id === user.id ? 'selected' : ''}" data-user-id="${user.id}">
+                                ${user.name}
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary close">Cancelar</button>
-                    <button type="button" id="confirmDebit" class="btn btn-danger">Confirmar Debito</button>
+                
+                <div class="form-actions">
+                    <button type="button" class="form-btn btn-gray" id="cancel-debit">Cancelar</button>
+                    <button type="button" class="form-btn btn-gold" id="confirm-debit">Confirmar Débito</button>
                 </div>
             `;
             
-            debitModal.style.display = 'flex';
+            modalDebitPart.style.display = 'block';
             
-            // Evento para confirmar o débito
-            document.getElementById('confirmDebit').addEventListener('click', function() {
-                const quantity = parseInt(document.getElementById('debitQuantity').value);
-                const user = document.getElementById('debitUser').value;
+            // Seleciona usuário
+            const userOptions = document.querySelectorAll('.user-option');
+            userOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    userOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const userId = parseInt(this.getAttribute('data-user-id'));
+                    currentUser = users.find(u => u.id === userId);
+                });
+            });
+            
+            // Se não houver usuário selecionado, seleciona o primeiro
+            if (!currentUser && users.length > 0) {
+                currentUser = users[0];
+                userOptions[0].classList.add('selected');
+            }
+            
+            // Evento para confirmar débito
+            document.getElementById('confirm-debit').addEventListener('click', function() {
+                const quantity = parseInt(document.getElementById('debit-quantity').value);
+                
+                if (!quantity || quantity < 1) {
+                    alert('Informe uma quantidade válida!');
+                    return;
+                }
                 
                 if (quantity > part.quantity) {
-                    alert('Quantidade solicitada maior que o estoque disponível!');
+                    alert('Quantidade maior que o estoque disponível!');
                     return;
                 }
                 
-                if (!user.trim()) {
-                    alert('Por favor, informe o nome do responsável!');
+                if (!currentUser) {
+                    alert('Selecione um usuário responsável!');
                     return;
                 }
                 
-                // Atualiza a quantidade
+                // Atualiza quantidade
                 part.quantity -= quantity;
                 
                 // Adiciona ao histórico
@@ -726,187 +1307,295 @@
                 part.history.push({
                     date: dateString,
                     action: "Retirada",
-                    user: user
+                    user: currentUser.name,
+                    quantity: quantity
                 });
                 
+                // Salva no localStorage
+                saveData();
+                
                 // Recarrega as peças
-                loadParts(parts);
+                loadAllParts();
+                updateCounters();
                 
                 // Fecha o modal
-                debitModal.style.display = 'none';
+                modalDebitPart.style.display = 'none';
                 
                 // Mostra mensagem de sucesso
-                alert(`Peça debitada com sucesso! Restam ${part.quantity} unidades de ${part.name}.`);
+                alert(`Débito realizado com sucesso!\n${quantity} un. de ${part.name} debitadas por ${currentUser.name}.\nEstoque atual: ${part.quantity} unidades.`);
+            });
+            
+            // Evento para cancelar
+            document.getElementById('cancel-debit').addEventListener('click', function() {
+                modalDebitPart.style.display = 'none';
             });
         }
 
-        // Filtra peças pela busca
-        function searchParts() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            
-            if (searchTerm === '') {
-                loadParts(parts);
-                return;
-            }
-            
-            const filteredParts = parts.filter(part => 
-                part.code.toLowerCase().includes(searchTerm) || 
-                part.name.toLowerCase().includes(searchTerm) ||
-                part.location.toLowerCase().includes(searchTerm)
-            );
-            
-            loadParts(filteredParts);
-        }
-
-        // Abre modal para cadastrar nova peça
-        function openNewPartModal() {
-            newPartModal.style.display = 'flex';
-            newPartForm.reset();
-        }
-
-        // Cadastra nova peça
-        function registerNewPart(event) {
-            event.preventDefault();
-            
-            const code = document.getElementById('partCode').value;
-            const name = document.getElementById('partName').value;
-            const value = parseFloat(document.getElementById('partValue').value);
-            const quantity = parseInt(document.getElementById('partQuantity').value);
-            
-            // Verifica se o código já existe
-            if (parts.some(part => part.code === code)) {
-                alert('Já existe uma peça com este código!');
-                return;
-            }
-            
-            // Cria nova peça
-            const newPart = {
-                id: parts.length > 0 ? Math.max(...parts.map(p => p.id)) + 1 : 1,
-                code: code,
-                name: name,
-                value: value,
-                quantity: quantity,
-                location: `Prateleira ${String.fromCharCode(65 + Math.floor(Math.random() * 6))}${Math.floor(Math.random() * 5) + 1}`,
-                history: []
-            };
-            
-            // Adiciona à lista
-            parts.push(newPart);
-            
-            // Recarrega as peças
-            loadParts(parts);
-            
-            // Fecha o modal
-            newPartModal.style.display = 'none';
-            
-            // Mensagem de sucesso
-            alert(`Peça "${name}" cadastrada com sucesso!`);
-        }
-
-        // Mostra painel de peças esgotadas
-        function showOutOfStockPanel() {
-            // Filtra peças esgotadas ou com baixo estoque
-            const outOfStockParts = parts.filter(part => part.quantity <= 3);
-            
-            // Limpa a tabela
-            outOfStockTable.innerHTML = '';
-            
-            if (outOfStockParts.length === 0) {
-                outOfStockTable.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 30px;">
-                            <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success); margin-bottom: 10px; display: block;"></i>
-                            <p>Todas as peças estão com estoque suficiente!</p>
-                        </td>
-                    </tr>
-                `;
-            } else {
-                outOfStockParts.forEach(part => {
-                    const row = document.createElement('tr');
-                    
-                    // Última retirada
-                    let lastDebit = "Nenhuma retirada";
-                    if (part.history && part.history.length > 0) {
-                        const last = part.history[part.history.length - 1];
-                        lastDebit = `${last.date}`;
-                    }
-                    
-                    row.innerHTML = `
-                        <td>${part.code}</td>
-                        <td>${part.name}</td>
-                        <td><strong style="color: ${part.quantity === 0 ? 'var(--danger)' : 'var(--warning)'}">${part.quantity}</strong></td>
-                        <td>${lastDebit}</td>
-                        <td>
-                            <button class="btn-secondary" style="padding: 8px 12px; font-size: 0.9rem;" onclick="reorderPart(${part.id})">
-                                <i class="fas fa-shopping-cart"></i> Comprar
-                            </button>
-                        </td>
-                    `;
-                    
-                    outOfStockTable.appendChild(row);
-                });
-            }
-            
-            // Mostra/oculta o painel
-            if (outOfStockPanel.style.display === 'block') {
-                outOfStockPanel.style.display = 'none';
-            } else {
-                outOfStockPanel.style.display = 'block';
-                // Rola até o painel
-                outOfStockPanel.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Simula compra de mais unidades de uma peça
-        function reorderPart(partId) {
+        // Abre histórico da peça
+        function openPartHistory(partId) {
             const part = parts.find(p => p.id === partId);
             if (!part) return;
             
-            const quantityToAdd = prompt(`Quantas unidades de "${part.name}" você deseja adicionar ao estoque?`, "10");
+            partHistoryBody.innerHTML = `
+                <h4 style="margin-bottom: 20px; color: var(--gold);">${part.name} (${part.code})</h4>
+                <p style="margin-bottom: 20px;">Estoque atual: <strong>${part.quantity} unidades</strong></p>
+                
+                <div class="history-list">
+                    ${part.history.length === 0 ? 
+                        '<div class="empty-state"><p>Nenhum histórico disponível para esta peça</p></div>' : 
+                        part.history.map(record => `
+                            <div class="history-item">
+                                <div class="history-date">${record.date}</div>
+                                <div class="history-details">
+                                    <div>
+                                        <strong>${record.action}</strong> de ${record.quantity} un.
+                                    </div>
+                                    <div>
+                                        Por: <strong>${record.user}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')
+                    }
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="form-btn btn-gray" id="close-history">Fechar</button>
+                </div>
+            `;
             
-            if (quantityToAdd && !isNaN(quantityToAdd) && parseInt(quantityToAdd) > 0) {
-                part.quantity += parseInt(quantityToAdd);
+            modalPartHistory.style.display = 'block';
+            
+            // Evento para fechar
+            document.getElementById('close-history').addEventListener('click', function() {
+                modalPartHistory.style.display = 'none';
+            });
+        }
+
+        // Abre modal de usuários
+        function openUsersModal() {
+            loadUsersList();
+            modalUsers.style.display = 'block';
+        }
+
+        // Carrega lista de usuários
+        function loadUsersList() {
+            usersList.innerHTML = '';
+            
+            if (users.length === 0) {
+                usersList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Nenhum usuário cadastrado</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
                 
-                // Atualiza a exibição
-                loadParts(parts);
-                showOutOfStockPanel();
+                userItem.innerHTML = `
+                    <div class="user-info">
+                        <h4>${user.name}</h4>
+                        <p>ID: ${user.id} ${user.active ? '' : '(Inativo)'}</p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="icon-btn edit-btn" data-user-id="${user.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="icon-btn delete-btn" data-user-id="${user.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
                 
-                alert(`${quantityToAdd} unidades adicionadas ao estoque de ${part.name}. Novo total: ${part.quantity} unidades.`);
+                usersList.appendChild(userItem);
+            });
+            
+            // Adiciona eventos aos botões
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-user-id'));
+                    editUser(userId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-user-id'));
+                    deleteUser(userId);
+                });
+            });
+        }
+
+        // Adiciona usuário
+        function addUser() {
+            const name = newUserName.value.trim();
+            
+            if (!name) {
+                alert('Informe o nome do usuário!');
+                return;
+            }
+            
+            // Verifica se já existe
+            if (users.some(user => user.name.toLowerCase() === name.toLowerCase())) {
+                alert('Já existe um usuário com este nome!');
+                return;
+            }
+            
+            // Cria novo usuário
+            const newUser = {
+                id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+                name: name,
+                active: true
+            };
+            
+            users.push(newUser);
+            saveData();
+            loadUsersList();
+            newUserName.value = '';
+            
+            alert(`Usuário "${name}" adicionado com sucesso!`);
+        }
+
+        // Edita usuário
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            const newName = prompt("Editar nome do usuário:", user.name);
+            
+            if (newName && newName.trim() !== '') {
+                user.name = newName.trim();
+                saveData();
+                loadUsersList();
+                alert('Usuário atualizado com sucesso!');
             }
         }
 
-        // Event Listeners
-        searchButton.addEventListener('click', searchParts);
-        searchInput.addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                searchParts();
+        // Remove usuário
+        function deleteUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            if (confirm(`Tem certeza que deseja remover o usuário "${user.name}"?`)) {
+                // Não remove fisicamente, marca como inativo
+                user.active = false;
+                saveData();
+                loadUsersList();
+                alert('Usuário marcado como inativo!');
             }
-        });
+        }
 
-        btnNewPart.addEventListener('click', openNewPartModal);
-        btnOutOfStock.addEventListener('click', showOutOfStockPanel);
-        newPartForm.addEventListener('submit', registerNewPart);
+        // Salva dados no localStorage
+        function saveData() {
+            localStorage.setItem('cascavel-parts', JSON.stringify(parts));
+            localStorage.setItem('cascavel-users', JSON.stringify(users));
+        }
 
-        // Fechar modais
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                newPartModal.style.display = 'none';
-                debitModal.style.display = 'none';
+        // Configura eventos
+        function setupEventListeners() {
+            // Busca
+            searchBtn.addEventListener('click', searchParts);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchParts();
+                }
             });
-        });
+            
+            btnClearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                showSection('all');
+            });
+            
+            // Tabs
+            tabStock.addEventListener('click', () => showSection('all'));
+            tabOutofstock.addEventListener('click', () => showSection('outofstock'));
+            tabHistory.addEventListener('click', () => showSection('history'));
+            
+            // Botões principais
+            btnAddPart.addEventListener('click', () => {
+                modalNewPart.style.display = 'block';
+            });
+            
+            btnShowOutofstock.addEventListener('click', () => {
+                showSection('outofstock');
+            });
+            
+            usersButton.addEventListener('click', openUsersModal);
+            
+            // Formulário nova peça
+            formNewPart.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const code = document.getElementById('part-code').value.trim();
+                const name = document.getElementById('part-name').value.trim();
+                const value = parseFloat(document.getElementById('part-value').value);
+                const quantity = parseInt(document.getElementById('part-quantity').value);
+                const location = document.getElementById('part-location').value.trim();
+                
+                // Validações
+                if (!code || !name || isNaN(value) || isNaN(quantity)) {
+                    alert('Preencha todos os campos corretamente!');
+                    return;
+                }
+                
+                // Verifica se código já existe
+                if (parts.some(part => part.code.toLowerCase() === code.toLowerCase())) {
+                    alert('Já existe uma peça com este código!');
+                    return;
+                }
+                
+                // Cria nova peça
+                const newPart = {
+                    id: parts.length > 0 ? Math.max(...parts.map(p => p.id)) + 1 : 1,
+                    code: code,
+                    name: name,
+                    value: value,
+                    quantity: quantity,
+                    location: location,
+                    history: []
+                };
+                
+                parts.push(newPart);
+                saveData();
+                loadAllParts();
+                updateCounters();
+                
+                modalNewPart.style.display = 'none';
+                formNewPart.reset();
+                
+                alert(`Peça "${name}" cadastrada com sucesso!`);
+            });
+            
+            // Adicionar usuário
+            btnAddUser.addEventListener('click', addUser);
+            newUserName.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    addUser();
+                }
+            });
+            
+            // Fechar modais
+            closeNewPart.addEventListener('click', () => modalNewPart.style.display = 'none');
+            cancelNewPart.addEventListener('click', () => modalNewPart.style.display = 'none');
+            closeDebitPart.addEventListener('click', () => modalDebitPart.style.display = 'none');
+            closeUsersModal.addEventListener('click', () => modalUsers.style.display = 'none');
+            closeUsers.addEventListener('click', () => modalUsers.style.display = 'none');
+            closeHistoryModal.addEventListener('click', () => modalPartHistory.style.display = 'none');
+            
+            // Fechar modais ao clicar fora
+            window.addEventListener('click', function(event) {
+                if (event.target === modalNewPart) modalNewPart.style.display = 'none';
+                if (event.target === modalDebitPart) modalDebitPart.style.display = 'none';
+                if (event.target === modalUsers) modalUsers.style.display = 'none';
+                if (event.target === modalPartHistory) modalPartHistory.style.display = 'none';
+            });
+        }
 
-        // Fechar modais ao clicar fora
-        window.addEventListener('click', function(event) {
-            if (event.target === newPartModal) {
-                newPartModal.style.display = 'none';
-            }
-            if (event.target === debitModal) {
-                debitModal.style.display = 'none';
-            }
-        });
-
-        // Carrega as peças ao iniciar
-        loadParts();
+        // Inicializa o sistema
+        init();
     </script>
 </body>
 </html>
