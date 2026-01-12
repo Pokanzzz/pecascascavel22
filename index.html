@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascavel Peças - Sistema Interno de Locação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--warning);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--warning);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #219653;
+            transform: translateY(-3px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #2980b9;
+        }
+
+        .search-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: border 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 15px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #2980b9;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+        }
+
+        .card-code {
+            font-size: 0.9rem;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .card-info span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-quantity {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-debit {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-debit:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-disabled {
+            background-color: var(--gray);
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .out-of-stock {
+            border-left: 6px solid var(--danger);
+        }
+
+        .low-stock {
+            border-left: 6px solid var(--warning);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+        }
+
+        .close {
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--danger);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .history-panel {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+            display: none;
+        }
+
+        .history-panel h2 {
+            color: var(--danger);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th, .history-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .history-table th {
+            background-color: #f8f9fa;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .history-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+
+        .debit-log {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-cogs"></i>
+                <div>
+                    <h1>Cascavel <span>Peças</span></h1>
+                    <p>Sistema Interno de Locação</p>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-success" id="btnNewPart">
+                    <i class="fas fa-plus"></i> Cadastrar Peça
+                </button>
+                <button class="btn btn-danger" id="btnOutOfStock">
+                    <i class="fas fa-exclamation-triangle"></i> Peças Esgotadas
+                </button>
+            </div>
+        </header>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Digite o código ou nome da peça...">
+                <button id="searchButton">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+
+        <div id="partsContainer" class="cards-container">
+            <!-- As peças serão carregadas aqui via JavaScript -->
+        </div>
+
+        <div id="outOfStockPanel" class="history-panel">
+            <h2><i class="fas fa-exclamation-circle"></i> Peças Esgotadas ou com Baixo Estoque</h2>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Última Locação</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="outOfStockTable">
+                    <!-- Conteúdo será preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Sistema de Locação Interna - Cascavel Peças &copy; <span id="currentYear"></span></p>
+            <p>Uso exclusivo para funcionários autorizados</p>
+        </div>
+    </div>
+
+    <!-- Modal para cadastrar nova peça -->
+    <div id="newPartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> Cadastrar Nova Peça</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="newPartForm">
+                <div class="form-group">
+                    <label for="partCode">Código da Peça</label>
+                    <input type="text" id="partCode" required placeholder="Ex: CP-001">
+                </div>
+                <div class="form-group">
+                    <label for="partName">Nome da Peça</label>
+                    <input type="text" id="partName" required placeholder="Ex: Junta do Motor">
+                </div>
+                <div class="form-group">
+                    <label for="partValue">Valor (R$)</label>
+                    <input type="number" id="partValue" step="0.01" required placeholder="Ex: 89.90">
+                </div>
+                <div class="form-group">
+                    <label for="partQuantity">Quantidade Inicial</label>
+                    <input type="number" id="partQuantity" required placeholder="Ex: 10" min="0">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Salvar Peça</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para debitar peça -->
+    <div id="debitModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-minus-circle"></i> Debitar Peça</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div id="debitModalContent">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados iniciais (simulando um banco de dados)
+        let parts = [
+            {
+                id: 1,
+                code: "CP-001",
+                name: "Junta do Motor",
+                value: 89.90,
+                quantity: 15,
+                location: "Prateleira A1",
+                history: [
+                    { date: "2023-10-05 14:30", action: "Retirada", user: "João Silva" },
+                    { date: "2023-10-03 09:15", action: "Retirada", user: "Maria Santos" }
+                ]
+            },
+            {
+                id: 2,
+                code: "CP-002",
+                name: "Filtro de Óleo",
+                value: 24.50,
+                quantity: 8,
+                location: "Prateleira B2",
+                history: [
+                    { date: "2023-10-06 11:20", action: "Retirada", user: "Carlos Oliveira" },
+                    { date: "2023-10-04 16:45", action: "Retirada", user: "Ana Costa" }
+                ]
+            },
+            {
+                id: 3,
+                code: "CP-003",
+                name: "Pastilha de Freio",
+                value: 120.00,
+                quantity: 3,
+                location: "Prateleira C3",
+                history: [
+                    { date: "2023-10-07 08:10", action: "Retirada", user: "Pedro Alves" }
+                ]
+            },
+            {
+                id: 4,
+                code: "CP-004",
+                name: "Correia Dentada",
+                value: 65.80,
+                quantity: 0,
+                location: "Prateleira D4",
+                history: [
+                    { date: "2023-10-01 10:30", action: "Retirada", user: "João Silva" },
+                    { date: "2023-09-28 15:20", action: "Retirada", user: "Maria Santos" }
+                ]
+            },
+            {
+                id: 5,
+                code: "CP-005",
+                name: "Velas de Ignição",
+                value: 45.90,
+                quantity: 12,
+                location: "Prateleira E5",
+                history: []
+            },
+            {
+                id: 6,
+                code: "CP-006",
+                name: "Sensor de Oxigênio",
+                value: 185.00,
+                quantity: 2,
+                location: "Prateleira F6",
+                history: [
+                    { date: "2023-10-06 13:45", action: "Retirada", user: "Carlos Oliveira" }
+                ]
+            }
+        ];
+
+        // Elementos DOM
+        const partsContainer = document.getElementById('partsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const btnNewPart = document.getElementById('btnNewPart');
+        const btnOutOfStock = document.getElementById('btnOutOfStock');
+        const newPartModal = document.getElementById('newPartModal');
+        const debitModal = document.getElementById('debitModal');
+        const newPartForm = document.getElementById('newPartForm');
+        const debitModalContent = document.getElementById('debitModalContent');
+        const outOfStockPanel = document.getElementById('outOfStockPanel');
+        const outOfStockTable = document.getElementById('outOfStockTable');
+        const closeButtons = document.querySelectorAll('.close');
+        const currentYear = document.getElementById('currentYear');
+
+        // Ano atual no footer
+        currentYear.textContent = new Date().getFullYear();
+
+        // Inicialização - carrega todas as peças
+        function loadParts(partsToLoad = parts) {
+            partsContainer.innerHTML = '';
+            
+            if (partsToLoad.length === 0) {
+                partsContainer.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-search"></i>
+                        <h3>Nenhuma peça encontrada</h3>
+                        <p>Tente buscar com outros termos ou cadastre uma nova peça.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            partsToLoad.forEach(part => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                // Adiciona classe se estiver com estoque baixo ou esgotado
+                if (part.quantity === 0) {
+                    card.classList.add('out-of-stock');
+                } else if (part.quantity <= 3) {
+                    card.classList.add('low-stock');
+                }
+                
+                // Formata a última retirada
+                let lastDebit = "Nenhuma retirada";
+                if (part.history && part.history.length > 0) {
+                    const last = part.history[part.history.length - 1];
+                    lastDebit = `${last.date} por ${last.user}`;
+                }
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-code">${part.code}</div>
+                        <div class="card-title">${part.name}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div>Valor:</div>
+                            <div><span>R$ ${part.value.toFixed(2)}</span></div>
+                        </div>
+                        <div class="card-info">
+                            <div>Localização:</div>
+                            <div><span>${part.location}</span></div>
+                        </div>
+                        <div class="card-quantity">${part.quantity} unidades</div>
+                        <div class="card-actions">
+                            <button class="btn-debit" data-id="${part.id}" ${part.quantity === 0 ? 'disabled' : ''}>
+                                <i class="fas fa-minus-circle"></i> Debitar
+                            </button>
+                        </div>
+                        <div class="debit-log">
+                            <i class="far fa-clock"></i> Última retirada: ${lastDebit}
+                        </div>
+                    </div>
+                `;
+                
+                partsContainer.appendChild(card);
+            });
+            
+            // Adiciona eventos aos botões de debitar
+            document.querySelectorAll('.btn-debit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const partId = parseInt(this.getAttribute('data-id'));
+                    openDebitModal(partId);
+                });
+            });
+        }
+
+        // Abre modal para debitar peça
+        function openDebitModal(partId) {
+            const part = parts.find(p => p.id === partId);
+            if (!part) return;
+            
+            debitModalContent.innerHTML = `
+                <p>Você está prestes a debitar <strong>${part.name}</strong> (${part.code}).</p>
+                <div class="form-group">
+                    <label for="debitQuantity">Quantidade a debitar (Disponível: ${part.quantity})</label>
+                    <input type="number" id="debitQuantity" min="1" max="${part.quantity}" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="debitUser">Nome do responsável</label>
+                    <input type="text" id="debitUser" placeholder="Seu nome" value="João Silva">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary close">Cancelar</button>
+                    <button type="button" id="confirmDebit" class="btn btn-danger">Confirmar Debito</button>
+                </div>
+            `;
+            
+            debitModal.style.display = 'flex';
+            
+            // Evento para confirmar o débito
+            document.getElementById('confirmDebit').addEventListener('click', function() {
+                const quantity = parseInt(document.getElementById('debitQuantity').value);
+                const user = document.getElementById('debitUser').value;
+                
+                if (quantity > part.quantity) {
+                    alert('Quantidade solicitada maior que o estoque disponível!');
+                    return;
+                }
+                
+                if (!user.trim()) {
+                    alert('Por favor, informe o nome do responsável!');
+                    return;
+                }
+                
+                // Atualiza a quantidade
+                part.quantity -= quantity;
+                
+                // Adiciona ao histórico
+                const now = new Date();
+                const dateString = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+                
+                part.history.push({
+                    date: dateString,
+                    action: "Retirada",
+                    user: user
+                });
+                
+                // Recarrega as peças
+                loadParts(parts);
+                
+                // Fecha o modal
+                debitModal.style.display = 'none';
+                
+                // Mostra mensagem de sucesso
+                alert(`Peça debitada com sucesso! Restam ${part.quantity} unidades de ${part.name}.`);
+            });
+        }
+
+        // Filtra peças pela busca
+        function searchParts() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                loadParts(parts);
+                return;
+            }
+            
+            const filteredParts = parts.filter(part => 
+                part.code.toLowerCase().includes(searchTerm) || 
+                part.name.toLowerCase().includes(searchTerm) ||
+                part.location.toLowerCase().includes(searchTerm)
+            );
+            
+            loadParts(filteredParts);
+        }
+
+        // Abre modal para cadastrar nova peça
+        function openNewPartModal() {
+            newPartModal.style.display = 'flex';
+            newPartForm.reset();
+        }
+
+        // Cadastra nova peça
+        function registerNewPart(event) {
+            event.preventDefault();
+            
+            const code = document.getElementById('partCode').value;
+            const name = document.getElementById('partName').value;
+            const value = parseFloat(document.getElementById('partValue').value);
+            const quantity = parseInt(document.getElementById('partQuantity').value);
+            
+            // Verifica se o código já existe
+            if (parts.some(part => part.code === code)) {
+                alert('Já existe uma peça com este código!');
+                return;
+            }
+            
+            // Cria nova peça
+            const newPart = {
+                id: parts.length > 0 ? Math.max(...parts.map(p => p.id)) + 1 : 1,
+                code: code,
+                name: name,
+                value: value,
+                quantity: quantity,
+                location: `Prateleira ${String.fromCharCode(65 + Math.floor(Math.random() * 6))}${Math.floor(Math.random() * 5) + 1}`,
+                history: []
+            };
+            
+            // Adiciona à lista
+            parts.push(newPart);
+            
+            // Recarrega as peças
+            loadParts(parts);
+            
+            // Fecha o modal
+            newPartModal.style.display = 'none';
+            
+            // Mensagem de sucesso
+            alert(`Peça "${name}" cadastrada com sucesso!`);
+        }
+
+        // Mostra painel de peças esgotadas
+        function showOutOfStockPanel() {
+            // Filtra peças esgotadas ou com baixo estoque
+            const outOfStockParts = parts.filter(part => part.quantity <= 3);
+            
+            // Limpa a tabela
+            outOfStockTable.innerHTML = '';
+            
+            if (outOfStockParts.length === 0) {
+                outOfStockTable.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 30px;">
+                            <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success); margin-bottom: 10px; display: block;"></i>
+                            <p>Todas as peças estão com estoque suficiente!</p>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                outOfStockParts.forEach(part => {
+                    const row = document.createElement('tr');
+                    
+                    // Última retirada
+                    let lastDebit = "Nenhuma retirada";
+                    if (part.history && part.history.length > 0) {
+                        const last = part.history[part.history.length - 1];
+                        lastDebit = `${last.date}`;
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${part.code}</td>
+                        <td>${part.name}</td>
+                        <td><strong style="color: ${part.quantity === 0 ? 'var(--danger)' : 'var(--warning)'}">${part.quantity}</strong></td>
+                        <td>${lastDebit}</td>
+                        <td>
+                            <button class="btn-secondary" style="padding: 8px 12px; font-size: 0.9rem;" onclick="reorderPart(${part.id})">
+                                <i class="fas fa-shopping-cart"></i> Comprar
+                            </button>
+                        </td>
+                    `;
+                    
+                    outOfStockTable.appendChild(row);
+                });
+            }
+            
+            // Mostra/oculta o painel
+            if (outOfStockPanel.style.display === 'block') {
+                outOfStockPanel.style.display = 'none';
+            } else {
+                outOfStockPanel.style.display = 'block';
+                // Rola até o painel
+                outOfStockPanel.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Simula compra de mais unidades de uma peça
+        function reorderPart(partId) {
+            const part = parts.find(p => p.id === partId);
+            if (!part) return;
+            
+            const quantityToAdd = prompt(`Quantas unidades de "${part.name}" você deseja adicionar ao estoque?`, "10");
+            
+            if (quantityToAdd && !isNaN(quantityToAdd) && parseInt(quantityToAdd) > 0) {
+                part.quantity += parseInt(quantityToAdd);
+                
+                // Atualiza a exibição
+                loadParts(parts);
+                showOutOfStockPanel();
+                
+                alert(`${quantityToAdd} unidades adicionadas ao estoque de ${part.name}. Novo total: ${part.quantity} unidades.`);
+            }
+        }
+
+        // Event Listeners
+        searchButton.addEventListener('click', searchParts);
+        searchInput.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                searchParts();
+            }
+        });
+
+        btnNewPart.addEventListener('click', openNewPartModal);
+        btnOutOfStock.addEventListener('click', showOutOfStockPanel);
+        newPartForm.addEventListener('submit', registerNewPart);
+
+        // Fechar modais
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                newPartModal.style.display = 'none';
+                debitModal.style.display = 'none';
+            });
+        });
+
+        // Fechar modais ao clicar fora
+        window.addEventListener('click', function(event) {
+            if (event.target === newPartModal) {
+                newPartModal.style.display = 'none';
+            }
+            if (event.target === debitModal) {
+                debitModal.style.display = 'none';
+            }
+        });
+
+        // Carrega as peças ao iniciar
+        loadParts();
+    </script>
+</body>
+</html>
